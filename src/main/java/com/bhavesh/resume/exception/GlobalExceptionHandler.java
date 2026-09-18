@@ -72,4 +72,34 @@ public class GlobalExceptionHandler {
                 .body(error);
     }
 
+    @ExceptionHandler(ResumeNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResumeNotFound(
+            ResumeNotFoundException exception
+    ) {
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(error);
+    }
+
+    @ExceptionHandler(ScreeningResultNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleScreeningResultNotFound(
+            ScreeningResultNotFoundException exception
+    ) {
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(error);
+    }
+
 }
