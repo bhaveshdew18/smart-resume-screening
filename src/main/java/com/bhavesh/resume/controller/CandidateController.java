@@ -5,6 +5,8 @@ import com.bhavesh.resume.dto.response.CandidateResponse;
 import com.bhavesh.resume.service.CandidateService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,11 +22,14 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
+    @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CandidateResponse createCandidate(
-            @Valid @RequestBody CreateCandidateRequest request) throws IllegalAccessException {
-        return candidateService.createCandidate(request);
+    public ResponseEntity<CandidateResponse> createCandidate(
+            @Valid @RequestBody CreateCandidateRequest request
+    ) throws IllegalAccessException {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(candidateService.createCandidate(request));
     }
 
     @GetMapping

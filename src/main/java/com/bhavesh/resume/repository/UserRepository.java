@@ -1,13 +1,14 @@
 package com.bhavesh.resume.repository;
 
-import com.bhavesh.resume.entity.Candidate;
+
+import com.bhavesh.resume.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<Candidate> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);
 }
